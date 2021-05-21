@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>İhsan Coder | Intro component with sign up form | Frontend Mentor</title>
+  <link rel="stylesheet" href="./css/stilo.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <aside>
+
+      <div class="title">
+        Learn to code by <br> watching others
+      </div>
+      <p class="text">
+        See how experienced developers solve problems in real-time. Watching scripted tutorials is great,
+        but understanding how developers think is invaluable.
+      </p>
+    </aside>
+    <main>
+
+      <div class="tryit">
+        <span> <b>Try it free 7 days </b>then</span>
+        <span> $20/mo. thereafter</span>
+      </div>
+      <div class="form">
+        <form method="POST">
+          <input type="text" id="firstname" name="First Name" placeholder="First Name">
+          <span class="firstname"></span>
+          <input type="text" id="lastname" name="Last Name" placeholder="Last Name">
+          <span class="lastname"></span>
+          <input type="email" id="email" name="Email" placeholder="Email Address">
+          <span class="email"></span>
+          <input type="password" id="password" name="Password" placeholder="Password">
+          <span class="password"></span>
+          <button type="submit" id="btn">Claim your free trial</button>
+        </form>
+        <small>By clicking the button, you are agreeing to our <a href="#"> Terms and Services</a></small>
+      </div>
+
+    </main>
+  </div>
+  <footer>
+    <p class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="https://www.twitter.com/coderkc27" target="_blank">İhsan Coder</a>.
+    </p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $('#btn').bind('click', notEmpty);
+
+    function notEmpty(e) {
+      e.preventDefault();
+      let tar = e.target;
+      let inputs = $('.form form input').toArray();
+      $.each(inputs, function (key, input) {
+
+        let clas = $('span.' + input.id);
+
+        if (input.value.length == 0) {
+          input.classList.add('active');
+          clas.html(input.name + " can not be empty");
+          clas.css('opacity', "1");
+        } else if (input.id == "email") {
+          validate(input);
+        } else {
+          input.classList.remove('active');
+          clas.html("");
+          clas.css('opacity', "0");
+        }
+
+      });
+    }
+
+
+    function validateEmail(email) {
+      const re =
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+    function validate() {
+      const $result = $(".email");
+
+      console.log($result);
+      const email = $("#email").val();
+      $result.text("");
+
+      if (validateEmail(email)) {
+        $result.text("");
+        $("#email").css("border", "1px solid hsl(246, 25%, 77%)");
+        $result.css('opacity', "0");
+
+      } else {
+        $result.text(email + " is not valid :(");
+        $result.css('opacity', "1");
+
+        $result.css("color", "red");
+        $("#email").css("border", "1px solid hsl(0, 100%, 74%)");
+      }
+    }
+  </script>
+</body>
+
+</html>
